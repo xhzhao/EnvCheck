@@ -4,11 +4,14 @@ if [ "$MKLML_PATH" = "" ]; then
    mkdir MKL
    cd MKL
    cp ../prepare_mkl.sh ./
-   MKL_ROOT=`bash ./prepare_mkl.sh`
-   SET_LLP="export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$MKL_ROOT/lib"
-   SET_LP="export LIBRARY_PATH=\$LIBRARY_PATH:$MKL_ROOT/lib"
+   MKLML_PATH=`bash ./prepare_mkl.sh`
+   SET_LLP="export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$MKLML_PATH/lib"
+   SET_LP="export LIBRARY_PATH=\$LIBRARY_PATH:$MKLML_PATH/lib"
+   SET_MKL="export MKLML_PATH=$MKLML_PATH"
    echo "$SET_LLP" >> ~/.bashrc
    echo "$SET_LP" >> ~/.bashrc
+   echo "$SET_MKL" >> ~/.bashrc
+   echo "set MKLML path in the ~/.bashrc, please source this file before torch/theano installation."
    cd ..
 else
    echo "MKLML found"
